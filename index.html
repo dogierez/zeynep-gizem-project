@@ -18,7 +18,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: auto; /* Allows natural scrolling on smaller mobile screens */
+            overflow-y: auto;
         }
 
         .hidden {
@@ -153,7 +153,7 @@
             line-height: 1.1;
             min-height: 50px;
             box-sizing: border-box;
-            touch-action: manipulation; /* Prevents double-tap zoom on mobile */
+            touch-action: manipulation; 
         }
         .match-btn:disabled {
             opacity: 0;
@@ -208,6 +208,7 @@
         .hud {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
             width: 100%;
             padding: 10px 20px;
             font-size: 18px;
@@ -216,6 +217,15 @@
             border-bottom: 2px solid #444;
             flex-shrink: 0;
         }
+        
+        .hud-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            font-size: 16px;
+        }
+
         .flashcard-container {
             flex-grow: 1;
             display: flex;
@@ -224,7 +234,6 @@
             justify-content: center;
             width: 100%;
             padding-bottom: 20px;
-            /* Critical for smooth mobile swiping without scrolling the whole page simultaneously */
             touch-action: pan-x pan-y; 
         }
         .flashcard {
@@ -241,7 +250,7 @@
             align-items: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             box-sizing: border-box;
-            user-select: none; /* Prevents text highlighting while swiping */
+            user-select: none; 
         }
         .fc-text {
             font-size: 34px;
@@ -304,7 +313,6 @@
             width: 100%;
         }
 
-        /* Upgraded control hint to act as real buttons for mobile */
         .control-btn {
             background-color: transparent;
             border: 2px solid #444;
@@ -377,7 +385,10 @@
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
-            <div>Correct: <span id="hud-correct" style="color: #4caf50; font-weight: bold;">0</span></div>
+            <div class="hud-stats">
+                <div>Correct: <span id="hud-correct" style="color: #4caf50; font-weight: bold;">0</span></div>
+                <div>Incorrect: <span id="hud-incorrect" style="color: #ff3333; font-weight: bold;">0</span></div>
+            </div>
         </div>
         
         <!-- Flashcard swiping container -->
@@ -641,11 +652,13 @@
         // --- Game 2 Logic (Flashcards) & Mobile Swipe Logic ---
         let currentCardIndex = 0;
         let correctCount = 0;
+        let incorrectCount = 0;
         let historyStack = [];
 
         function startGameFlashcards() {
             currentCardIndex = 0;
             correctCount = 0;
+            incorrectCount = 0;
             historyStack = [];
             switchScreen('game-flashcards');
             document.getElementById('hud-total').innerText = sentences.length;
@@ -666,6 +679,7 @@
 
             document.getElementById('hud-remaining').innerText = sentences.length - currentCardIndex;
             document.getElementById('hud-correct').innerText = correctCount;
+            document.getElementById('hud-incorrect').innerText = incorrectCount;
 
             document.getElementById('fc-tr').innerHTML = sentences[currentCardIndex].tr;
             document.getElementById('fc-en').innerHTML = sentences[currentCardIndex].en;
@@ -700,6 +714,7 @@
             else if (e.key === 'ArrowLeft') {
                 if(document.getElementById('fc-en').classList.contains('hidden')) return;
                 historyStack.push({ type: 'wrong' });
+                incorrectCount++;
                 currentCardIndex++;
                 updateFlashcard();
             } 
@@ -709,6 +724,8 @@
                     currentCardIndex--;
                     if (lastAction.type === 'correct') {
                         correctCount--;
+                    } else if (lastAction.type === 'wrong') {
+                        incorrectCount--;
                     }
                     if (currentCardIndex < sentences.length) {
                         document.addEventListener('keydown', handleKeyPress); 
