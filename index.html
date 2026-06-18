@@ -16,8 +16,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto; /* Allows natural scrolling on smaller mobile screens */
         }
 
         .hidden {
@@ -27,7 +28,7 @@
         .screen {
             width: 100%;
             max-width: 800px;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,7 +40,6 @@
         /* Scrollable Landing Page Grid */
         #landing-page {
             justify-content: flex-start;
-            overflow-y: auto;
             padding-top: 20px;
             padding-bottom: 40px;
         }
@@ -47,6 +47,7 @@
         #landing-page h1 {
             margin-bottom: 20px;
             flex-shrink: 0;
+            text-align: center;
         }
 
         .lessons-grid {
@@ -152,6 +153,7 @@
             line-height: 1.1;
             min-height: 50px;
             box-sizing: border-box;
+            touch-action: manipulation; /* Prevents double-tap zoom on mobile */
         }
         .match-btn:disabled {
             opacity: 0;
@@ -182,7 +184,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            padding: 5px 0 10px 0;
+            padding: 15px 0 20px 0;
             flex-shrink: 0;
         }
 
@@ -222,6 +224,8 @@
             justify-content: center;
             width: 100%;
             padding-bottom: 20px;
+            /* Critical for smooth mobile swiping without scrolling the whole page simultaneously */
+            touch-action: pan-x pan-y; 
         }
         .flashcard {
             background-color: #2a2a2a;
@@ -237,6 +241,7 @@
             align-items: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             box-sizing: border-box;
+            user-select: none; /* Prevents text highlighting while swiping */
         }
         .fc-text {
             font-size: 34px;
@@ -258,7 +263,7 @@
             text-decoration-color: #00ffff;
             text-decoration-thickness: 3px;
             text-underline-offset: 4px;
-            cursor: pointer; /* Indicates it's tappable */
+            cursor: pointer; 
             transition: background-color 0.2s;
             border-radius: 4px;
         }
@@ -277,10 +282,10 @@
             font-size: 20px;
             font-weight: bold;
             z-index: 1000;
-            pointer-events: none; /* So it doesn't block clicks */
+            pointer-events: none; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.8);
             transform: translate(-50%, -100%);
-            margin-top: -10px; /* Spacing above the word */
+            margin-top: -10px; 
         }
 
         .separator {
@@ -291,18 +296,38 @@
         }
         .controls-hint {
             margin-top: 20px;
-            color: #aaa;
-            font-size: 14px;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
             flex-shrink: 0;
+            width: 100%;
         }
+
+        /* Upgraded control hint to act as real buttons for mobile */
+        .control-btn {
+            background-color: transparent;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #aaa;
+            font-size: 14px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .control-btn:hover, .control-btn:active {
+            background-color: #444;
+            color: #fff;
+            border-color: #ffa500;
+        }
+
         .key-badge {
             background-color: #444;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 4px 8px;
+            border-radius: 4px;
             color: #fff;
             font-weight: bold;
         }
@@ -318,18 +343,22 @@
             .match-btn { font-size: 16px; min-height: 42px; border-width: 3px; }
             .fc-text { font-size: 24px; }
             .lessons-grid { grid-template-columns: repeat(2, 1fr); }
+            .control-btn { font-size: 12px; padding: 6px 10px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Dictionary Tooltip -->
     <div id="dict-tooltip" class="hidden"></div>
 
+    <!-- Landing Page with 25 Boxes -->
     <div id="landing-page" class="screen">
         <h1>League System Hub</h1>
         <div id="hub-grid" class="lessons-grid"></div>
     </div>
 
+    <!-- Game 1: Word Match -->
     <div id="game1-match" class="screen hidden">
         <div class="game-header">
             <h2>Match the Words</h2>
@@ -344,22 +373,35 @@
         </div>
     </div>
 
+    <!-- Game 2: Flashcards -->
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
             <div>Correct: <span id="hud-correct" style="color: #4caf50; font-weight: bold;">0</span></div>
         </div>
-        <div class="flashcard-container">
+        
+        <!-- Flashcard swiping container -->
+        <div class="flashcard-container" id="fc-container">
             <div class="flashcard">
                 <div id="fc-tr" class="fc-text"></div>
                 <div id="fc-separator" class="separator hidden"></div>
                 <div id="fc-en" class="fc-text hidden"></div>
             </div>
+            
+            <!-- Mobile Tappable Buttons -->
             <div class="controls-hint">
-                <span><span class="key-badge">↑</span> Reveal</span>
-                <span><span class="key-badge">→</span> Correct</span>
-                <span><span class="key-badge">←</span> Wrong</span>
-                <span><span class="key-badge">↓</span> Undo</span>
+                <button class="control-btn" onclick="simulateKey('ArrowUp')">
+                    <span class="key-badge">↑</span> Reveal
+                </button>
+                <button class="control-btn" onclick="simulateKey('ArrowRight')">
+                    <span class="key-badge">→</span> Correct
+                </button>
+                <button class="control-btn" onclick="simulateKey('ArrowLeft')">
+                    <span class="key-badge">←</span> Wrong
+                </button>
+                <button class="control-btn" onclick="simulateKey('ArrowDown')">
+                    <span class="key-badge">↓</span> Undo
+                </button>
             </div>
         </div>
     </div>
@@ -381,7 +423,7 @@
             { tr: "Terlik", en: "Flipflop" }
         ];
 
-        // Processed sentences with corrections and data-dict translation attributes
+        // Processed sentences with data-dict translation attributes
         const sentences = [
             { 
                 tr: "<span class='keyword' data-dict='Sunbed'>Şezlong</span>a para ödemek zorundaydık ama <span class='keyword' data-dict='Umbrella'>şemsiye</span>ye para ödemek zorunda değildik.", 
@@ -494,16 +536,19 @@
                 tooltip.innerText = word;
                 tooltip.classList.remove('hidden');
                 
-                // Position tooltip above the clicked word
                 const rect = e.target.getBoundingClientRect();
-                tooltip.style.left = (rect.left + (rect.width / 2)) + 'px';
-                tooltip.style.top = rect.top + 'px'; 
+                // Ensuring tooltip stays within screen bounds on mobile
+                let leftPos = rect.left + (rect.width / 2);
+                if (leftPos < 60) leftPos = 60;
+                if (leftPos > window.innerWidth - 60) leftPos = window.innerWidth - 60;
+                
+                tooltip.style.left = leftPos + 'px';
+                tooltip.style.top = rect.top + window.scrollY + 'px'; 
             } else {
                 tooltip.classList.add('hidden');
             }
         });
 
-        // Hide tooltip if scrolling
         window.addEventListener('scroll', () => tooltip.classList.add('hidden'));
 
         // --- Generate Hub UI (25 Boxes) ---
@@ -531,9 +576,10 @@
         }
 
         function switchScreen(screenId) {
-            tooltip.classList.add('hidden'); // Clear tooltips on screen switch
+            tooltip.classList.add('hidden'); 
             document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
             document.getElementById(screenId).classList.remove('hidden');
+            window.scrollTo(0, 0); // Reset scroll on mobile
         }
 
         // --- Game 1 Logic (Word Match) ---
@@ -592,7 +638,7 @@
             }
         }
 
-        // --- Game 2 Logic (Flashcards) ---
+        // --- Game 2 Logic (Flashcards) & Mobile Swipe Logic ---
         let currentCardIndex = 0;
         let correctCount = 0;
         let historyStack = [];
@@ -608,7 +654,7 @@
         }
 
         function updateFlashcard() {
-            tooltip.classList.add('hidden'); // Clear tooltip when card changes
+            tooltip.classList.add('hidden'); 
             
             if (currentCardIndex >= sentences.length) {
                 document.getElementById('fc-tr').innerHTML = "Lesson Completed!";
@@ -628,8 +674,13 @@
             document.getElementById('fc-en').classList.add('hidden');
         }
 
+        // Helper function for the clickable UI buttons
+        function simulateKey(keyName) {
+            handleKeyPress({ key: keyName, preventDefault: () => {} });
+        }
+
         function handleKeyPress(e) {
-            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.key) > -1 && typeof e.preventDefault === 'function') {
                 e.preventDefault();
             }
 
@@ -663,6 +714,51 @@
                         document.addEventListener('keydown', handleKeyPress); 
                     }
                     updateFlashcard();
+                }
+            }
+        }
+
+        // --- Touch Swipe Implementation for Flashcards ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        const fcContainer = document.getElementById('fc-container');
+
+        fcContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        fcContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            const absDiffX = Math.abs(diffX);
+            const absDiffY = Math.abs(diffY);
+
+            // Minimum swipe distance threshold (30 pixels) to avoid accidental swipes
+            if (Math.max(absDiffX, absDiffY) < 30) return;
+
+            if (absDiffX > absDiffY) {
+                // Horizontal Swipe
+                if (diffX > 0) {
+                    simulateKey('ArrowRight'); // Swiped Right
+                } else {
+                    simulateKey('ArrowLeft'); // Swiped Left
+                }
+            } else {
+                // Vertical Swipe
+                if (diffY > 0) {
+                    simulateKey('ArrowDown'); // Swiped Down
+                } else {
+                    simulateKey('ArrowUp'); // Swiped Up
                 }
             }
         }
