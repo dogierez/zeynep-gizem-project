@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>English League System App</title>
+    <title>Thematic Vocabulary and Grammar Cocktail</title>
     <style>
         /* Global Styles */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
+            /* Dark brownish-red background */
+            background-color: #3b1010; 
+            /* Subtle educational watermark background (book, pencil, atom rings) */
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='rgba(255,255,255,0.06)' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30,80 V30 Q45,20 60,30 Q75,20 90,30 V80 Q75,70 60,80 Q45,70 30,80 Z M60,30 V80' /%3E%3Cpath d='M140,50 L120,70 L130,80 L150,60 Z M120,70 L110,80 L115,85 L125,75 Z M150,60 L160,50 L150,40 L140,50' /%3E%3Ccircle cx='100' cy='150' r='15' /%3E%3Cellipse cx='100' cy='150' rx='25' ry='10' transform='rotate(45 100 150)' /%3E%3Cellipse cx='100' cy='150' rx='25' ry='10' transform='rotate(-45 100 150)' /%3E%3C/g%3E%3C/svg%3E");
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -48,6 +51,8 @@
             margin-bottom: 20px;
             flex-shrink: 0;
             text-align: center;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .lessons-grid {
@@ -61,7 +66,7 @@
         }
 
         .lesson-box {
-            background-color: #333;
+            background-color: rgba(30, 30, 30, 0.9);
             border: 2px solid #555;
             border-radius: 10px;
             padding: 20px 10px;
@@ -76,22 +81,23 @@
             justify-content: center;
             min-height: 100px;
             box-sizing: border-box;
+            backdrop-filter: blur(5px);
         }
         
         .lesson-box.active {
             border-color: #4caf50;
-            background-color: #1b431c;
+            background-color: rgba(27, 67, 28, 0.9);
         }
         .lesson-box.active:hover {
             transform: scale(1.05);
-            background-color: #255c27;
+            background-color: rgba(37, 92, 39, 0.9);
         }
 
         .lesson-box.disabled {
-            opacity: 0.5;
+            opacity: 0.7;
             cursor: not-allowed;
             border-color: #444;
-            background-color: #222;
+            background-color: rgba(20, 20, 20, 0.8);
             color: #aaa;
         }
         
@@ -108,6 +114,11 @@
             margin-bottom: 5px;
             text-align: center;
             flex-shrink: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .game-header h2 {
             margin: 0 0 2px 0;
@@ -189,7 +200,7 @@
         }
 
         .skip-btn {
-            background-color: #333333;
+            background-color: #111;
             border: 2px dashed #ffa500;
             color: #ffa500;
             border-radius: 8px;
@@ -212,7 +223,7 @@
             width: 100%;
             padding: 10px 20px;
             font-size: 18px;
-            background-color: #222;
+            background-color: rgba(0, 0, 0, 0.8);
             box-sizing: border-box;
             border-bottom: 2px solid #444;
             flex-shrink: 0;
@@ -237,8 +248,8 @@
             touch-action: pan-x pan-y; 
         }
         .flashcard {
-            background-color: #2a2a2a;
-            border: 4px solid #ffa500;
+            background-color: #000000; /* Pitch Black Background */
+            border: 4px solid #ffa500; /* Orange Outline */
             border-radius: 15px;
             padding: 30px 20px;
             width: 100%;
@@ -248,7 +259,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             box-sizing: border-box;
             user-select: none; 
         }
@@ -314,7 +325,7 @@
         }
 
         .control-btn {
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0.7);
             border: 2px solid #444;
             border-radius: 8px;
             color: #aaa;
@@ -345,6 +356,7 @@
             .word-pool { grid-template-columns: repeat(3, 1fr); gap: 6px; }
             .match-btn { font-size: 18px; min-height: 46px; }
             .lessons-grid { grid-template-columns: repeat(3, 1fr); }
+            #landing-page h1 { font-size: 24px; }
         }
         @media (max-width: 480px) {
             .word-pool { grid-template-columns: repeat(2, 1fr); gap: 6px; }
@@ -357,16 +369,13 @@
 </head>
 <body>
 
-    <!-- Dictionary Tooltip -->
     <div id="dict-tooltip" class="hidden"></div>
 
-    <!-- Landing Page with 25 Boxes -->
     <div id="landing-page" class="screen">
-        <h1>League System Hub</h1>
+        <h1>Thematic Vocabulary and Grammar Cocktail</h1>
         <div id="hub-grid" class="lessons-grid"></div>
     </div>
 
-    <!-- Game 1: Word Match -->
     <div id="game1-match" class="screen hidden">
         <div class="game-header">
             <h2>Match the Words</h2>
@@ -381,7 +390,6 @@
         </div>
     </div>
 
-    <!-- Game 2: Flashcards -->
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
@@ -391,7 +399,6 @@
             </div>
         </div>
         
-        <!-- Flashcard swiping container -->
         <div class="flashcard-container" id="fc-container">
             <div class="flashcard">
                 <div id="fc-tr" class="fc-text"></div>
@@ -399,7 +406,6 @@
                 <div id="fc-en" class="fc-text hidden"></div>
             </div>
             
-            <!-- Mobile Tappable Buttons -->
             <div class="controls-hint">
                 <button class="control-btn" onclick="simulateKey('ArrowUp')">
                     <span class="key-badge">↑</span> Reveal
@@ -434,32 +440,9 @@
             { tr: "Terlik", en: "Flipflop" }
         ];
 
-        // Processed sentences with data-dict translation attributes
+        // Processed sentences sorted structurally from SIMPLE to COMPLEX
         const sentences = [
-            { 
-                tr: "<span class='keyword' data-dict='Sunbed'>Şezlong</span>a para ödemek zorundaydık ama <span class='keyword' data-dict='Umbrella'>şemsiye</span>ye para ödemek zorunda değildik.", 
-                en: "We had to pay for the <span class='keyword' data-dict='Şezlong'>sunbed</span>, but we didn't have to pay for the <span class='keyword' data-dict='Şemsiye'>umbrella</span>." 
-            },
-            { 
-                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da <span class='keyword' data-dict='To rest'>dinlen</span>emedim bu yüzden <span class='keyword' data-dict='To sunbathe'>güneşlenmeyi</span> tercih ettim.", 
-                en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>, so I preferred to <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
-            },
-            { 
-                tr: "<span class='keyword' data-dict='Towel'>Havlu</span>nu <span class='keyword' data-dict='Sand'>kum</span>a koyabilirsin ve <span class='keyword' data-dict='To sunbathe'>güneşlen</span>ebilirsin.", 
-                en: "You can put your <span class='keyword' data-dict='Havlu'>towel</span> on the <span class='keyword' data-dict='Kum'>sand</span> and <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
-            },
-            { 
-                tr: "Güneş vardı ama <span class='keyword' data-dict='To get a tan'>bronzlaş</span>amadım.", 
-                en: "It was sunny, but I couldn't <span class='keyword' data-dict='Bronzlaşmak'>get a tan</span>." 
-            },
-            { 
-                tr: "Çantamda <span class='keyword' data-dict='Towel'>havlu</span>m vardı yoksa <span class='keyword' data-dict='Towel'>havlu</span> almak zorundaydım.", 
-                en: "I had a <span class='keyword' data-dict='Havlu'>towel</span> in my bag, otherwise I had to take a <span class='keyword' data-dict='Havlu'>towel</span>." 
-            },
-            { 
-                tr: "Bir <span class='keyword' data-dict='To take a break'>mola ver</span>dik sonra <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
-                en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span>, then we <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
-            },
+            // --- Simple Sentences (Single clause, directly establishing core vocabulary) ---
             { 
                 tr: "<span class='keyword' data-dict='Sunbed'>Şezlong</span>um kirliydi.", 
                 en: "My <span class='keyword' data-dict='Şezlong'>sunbed</span> was dirty." 
@@ -473,48 +456,8 @@
                 en: "My daughter hates <span class='keyword' data-dict='Kum'>sand</span>." 
             },
             { 
-                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da müzik beni rahatsız ediyor.", 
-                en: "The music on the <span class='keyword' data-dict='Kumsal'>beach</span> bothers me." 
-            },
-            { 
-                tr: "Çocuklar <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='Sand'>kum</span>la oynuyordu.", 
-                en: "The children were playing with the <span class='keyword' data-dict='Kum'>sand</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
-            },
-            { 
-                tr: "<span class='keyword' data-dict='Shade'>Gölge</span>de <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
-                en: "We <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> in the <span class='keyword' data-dict='Gölge'>shade</span>." 
-            },
-            { 
-                tr: "<span class='keyword' data-dict='Entrance fee'>Giriş ücretleri</span> Türkiye'den ucuz.", 
-                en: "<span class='keyword' data-dict='Giriş ücreti'>Entrance fees</span> are cheaper than in Türkiye." 
-            },
-            { 
-                tr: "Tatilde her yerde <span class='keyword' data-dict='To take a break'>mola ver</span>dik.", 
-                en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span> everywhere on vacation." 
-            },
-            { 
                 tr: "Kızım <span class='keyword' data-dict='Towel'>havlu</span>sunu kaybetmişti.", 
                 en: "My daughter had lost her <span class='keyword' data-dict='Havlu'>towel</span>." 
-            },
-            { 
-                tr: "<span class='keyword' data-dict='Entrance fee'>Giriş ücreti</span> öğlen yemeğini kapsıyordu.", 
-                en: "The <span class='keyword' data-dict='Giriş ücreti'>entrance fee</span> included lunch." 
-            },
-            { 
-                tr: "Bazı <span class='keyword' data-dict='Beach'>kumsal</span>larda <span class='keyword' data-dict='Sunbed'>şezlong</span> için para almazlardı.", 
-                en: "On some <span class='keyword' data-dict='Kumsal'>beaches</span>, they wouldn't charge money for <span class='keyword' data-dict='Şezlong'>sunbeds</span>." 
-            },
-            { 
-                tr: "Havuzun yanında <span class='keyword' data-dict='To rest'>dinlen</span>emedim.", 
-                en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> by the pool." 
-            },
-            { 
-                tr: "Gençler <span class='keyword' data-dict='Beach'>kumsal</span>da voleybol oynuyordu.", 
-                en: "The teenagers were playing volleyball on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
-            },
-            { 
-                tr: "Turistler <span class='keyword' data-dict='Towel'>havlu</span>larını <span class='keyword' data-dict='Sunbed'>şezlong</span>larına koyuyordu.", 
-                en: "The tourists were putting their <span class='keyword' data-dict='Havlu'>towels</span> on their <span class='keyword' data-dict='Şezlong'>sunbeds</span>." 
             },
             { 
                 tr: "<span class='keyword' data-dict='Flipflop'>Terlik</span>lerimi <span class='keyword' data-dict='Sand'>kum</span>da kaybettim.", 
@@ -525,16 +468,82 @@
                 en: "My <span class='keyword' data-dict='Terlik'>flip-flops</span> were under my <span class='keyword' data-dict='Havlu'>towel</span>." 
             },
             { 
+                tr: "<span class='keyword' data-dict='Entrance fee'>Giriş ücretleri</span> Türkiye'den ucuz.", 
+                en: "<span class='keyword' data-dict='Giriş ücreti'>Entrance fees</span> are cheaper than in Türkiye." 
+            },
+            { 
+                tr: "<span class='keyword' data-dict='Entrance fee'>Giriş ücreti</span> öğlen yemeğini kapsıyordu.", 
+                en: "The <span class='keyword' data-dict='Giriş ücreti'>entrance fee</span> included lunch." 
+            },
+            { 
+                tr: "Havuzun yanında <span class='keyword' data-dict='To rest'>dinlen</span>emedim.", 
+                en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> by the pool." 
+            },
+            { 
+                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da müzik beni rahatsız ediyor.", 
+                en: "The music on the <span class='keyword' data-dict='Kumsal'>beach</span> bothers me." 
+            },
+            { 
+                tr: "Çocuklar <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='Sand'>kum</span>la oynuyordu.", 
+                en: "The children were playing with the <span class='keyword' data-dict='Kum'>sand</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
+            },
+            { 
+                tr: "Gençler <span class='keyword' data-dict='Beach'>kumsal</span>da voleybol oynuyordu.", 
+                en: "The teenagers were playing volleyball on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
+            },
+            { 
+                tr: "Turistler <span class='keyword' data-dict='Towel'>havlu</span>larını <span class='keyword' data-dict='Sunbed'>şezlong</span>larına koyuyordu.", 
+                en: "The tourists were putting their <span class='keyword' data-dict='Havlu'>towels</span> on their <span class='keyword' data-dict='Şezlong'>sunbeds</span>." 
+            },
+            { 
                 tr: "Birisi <span class='keyword' data-dict='Towel'>havlu</span>mu <span class='keyword' data-dict='Sunbed'>şezlong</span>umdan aldı.", 
                 en: "Someone took my <span class='keyword' data-dict='Havlu'>towel</span> from my <span class='keyword' data-dict='Şezlong'>sunbed</span>." 
+            },
+            { 
+                tr: "<span class='keyword' data-dict='Shade'>Gölge</span>de <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
+                en: "We <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> in the <span class='keyword' data-dict='Gölge'>shade</span>." 
+            },
+            { 
+                tr: "Tatilde her yerde <span class='keyword' data-dict='To take a break'>mola ver</span>dik.", 
+                en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span> everywhere on vacation." 
+            },
+            { 
+                tr: "Bazı <span class='keyword' data-dict='Beach'>kumsal</span>larda <span class='keyword' data-dict='Sunbed'>şezlong</span> için para almazlardı.", 
+                en: "On some <span class='keyword' data-dict='Kumsal'>beaches</span>, they wouldn't charge money for <span class='keyword' data-dict='Şezlong'>sunbeds</span>." 
+            },
+            { 
+                tr: "Plajda hiçbir yerde <span class='keyword' data-dict='Shade'>gölge</span> yoktu.", 
+                en: "There was <span class='keyword' data-dict='Gölge'>shade</span> nowhere on the beach." 
+            },
+            
+            // --- Complex Sentences (Joined by Connectors: ve, ama, sonra, yoksa, bu yüzden) ---
+            { 
+                tr: "<span class='keyword' data-dict='Towel'>Havlu</span>nu <span class='keyword' data-dict='Sand'>kum</span>a koyabilirsin ve <span class='keyword' data-dict='To sunbathe'>güneşlen</span>ebilirsin.", 
+                en: "You can put your <span class='keyword' data-dict='Havlu'>towel</span> on the <span class='keyword' data-dict='Kum'>sand</span> and <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
+            },
+            { 
+                tr: "Bir <span class='keyword' data-dict='To take a break'>mola ver</span>dik sonra <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
+                en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span>, then we <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
+            },
+            { 
+                tr: "Güneş vardı ama <span class='keyword' data-dict='To get a tan'>bronzlaş</span>amadım.", 
+                en: "It was sunny, but I couldn't <span class='keyword' data-dict='Bronzlaşmak'>get a tan</span>." 
             },
             { 
                 tr: "<span class='keyword' data-dict='To rest'>Dinlen</span>dim ama <span class='keyword' data-dict='To sunbathe'>güneşlen</span>emedim.", 
                 en: "I <span class='keyword' data-dict='Dinlenmek'>rested</span> but I couldn't <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
             },
             { 
-                tr: "Plajda hiçbir yerde <span class='keyword' data-dict='Shade'>gölge</span> yoktu.", 
-                en: "There was <span class='keyword' data-dict='Gölge'>shade</span> nowhere on the beach." 
+                tr: "Çantamda <span class='keyword' data-dict='Towel'>havlu</span>m vardı yoksa <span class='keyword' data-dict='Towel'>havlu</span> almak zorundaydım.", 
+                en: "I had a <span class='keyword' data-dict='Havlu'>towel</span> in my bag, otherwise I had to take a <span class='keyword' data-dict='Havlu'>towel</span>." 
+            },
+            { 
+                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da <span class='keyword' data-dict='To rest'>dinlen</span>emedim bu yüzden <span class='keyword' data-dict='To sunbathe'>güneşlenmeyi</span> tercih ettim.", 
+                en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>, so I preferred to <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
+            },
+            { 
+                tr: "<span class='keyword' data-dict='Sunbed'>Şezlong</span>a para ödemek zorundaydık ama <span class='keyword' data-dict='Umbrella'>şemsiye</span>ye para ödemek zorunda değildik.", 
+                en: "We had to pay for the <span class='keyword' data-dict='Şezlong'>sunbed</span>, but we didn't have to pay for the <span class='keyword' data-dict='Şemsiye'>umbrella</span>." 
             }
         ];
 
