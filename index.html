@@ -306,6 +306,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.8);
             transform: translate(-50%, -100%);
             margin-top: -10px; 
+            white-space: nowrap; /* Keeps the (to) verb structure on one line */
         }
 
         .separator {
@@ -369,13 +370,16 @@
 </head>
 <body>
 
+    <!-- Dictionary Tooltip -->
     <div id="dict-tooltip" class="hidden"></div>
 
+    <!-- Landing Page with 25 Boxes -->
     <div id="landing-page" class="screen">
         <h1>Thematic Vocabulary and Grammar Cocktail</h1>
         <div id="hub-grid" class="lessons-grid"></div>
     </div>
 
+    <!-- Game 1: Word Match -->
     <div id="game1-match" class="screen hidden">
         <div class="game-header">
             <h2>Match the Words</h2>
@@ -390,6 +394,7 @@
         </div>
     </div>
 
+    <!-- Game 2: Flashcards -->
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
@@ -399,6 +404,7 @@
             </div>
         </div>
         
+        <!-- Flashcard swiping container -->
         <div class="flashcard-container" id="fc-container">
             <div class="flashcard">
                 <div id="fc-tr" class="fc-text"></div>
@@ -406,6 +412,7 @@
                 <div id="fc-en" class="fc-text hidden"></div>
             </div>
             
+            <!-- Mobile Tappable Buttons -->
             <div class="controls-hint">
                 <button class="control-btn" onclick="simulateKey('ArrowUp')">
                     <span class="key-badge">↑</span> Reveal
@@ -426,15 +433,15 @@
     <script>
         // --- Data Definitions ---
         const vocabulary = [
-            { tr: "Bronzlaşmak", en: "To get a tan" },
-            { tr: "Dinlenmek", en: "To rest" },
+            { tr: "Bronzlaşmak", en: "(to) get a tan" },
+            { tr: "Dinlenmek", en: "(to) rest" },
             { tr: "Giriş ücreti", en: "Entrance fee" },
             { tr: "Gölge", en: "Shade" },
-            { tr: "Güneşlenmek", en: "To sunbathe" },
+            { tr: "Güneşlenmek", en: "(to) sunbathe" },
             { tr: "Havlu", en: "Towel" },
             { tr: "Kum", en: "Sand" },
             { tr: "Kumsal", en: "Beach" },
-            { tr: "Mola vermek", en: "To take a break" },
+            { tr: "Mola vermek", en: "(to) take a break" },
             { tr: "Şemsiye", en: "Umbrella" },
             { tr: "Şezlong", en: "Sunbed" },
             { tr: "Terlik", en: "Flipflop" }
@@ -476,7 +483,7 @@
                 en: "The <span class='keyword' data-dict='Giriş ücreti'>entrance fee</span> included lunch." 
             },
             { 
-                tr: "Havuzun yanında <span class='keyword' data-dict='To rest'>dinlen</span>emedim.", 
+                tr: "Havuzun yanında <span class='keyword' data-dict='(to) rest'>dinlen</span>emedim.", 
                 en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> by the pool." 
             },
             { 
@@ -500,11 +507,11 @@
                 en: "Someone took my <span class='keyword' data-dict='Havlu'>towel</span> from my <span class='keyword' data-dict='Şezlong'>sunbed</span>." 
             },
             { 
-                tr: "<span class='keyword' data-dict='Shade'>Gölge</span>de <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
+                tr: "<span class='keyword' data-dict='Shade'>Gölge</span>de <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>tık.", 
                 en: "We <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> in the <span class='keyword' data-dict='Gölge'>shade</span>." 
             },
             { 
-                tr: "Tatilde her yerde <span class='keyword' data-dict='To take a break'>mola ver</span>dik.", 
+                tr: "Tatilde her yerde <span class='keyword' data-dict='(to) take a break'>mola ver</span>dik.", 
                 en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span> everywhere on vacation." 
             },
             { 
@@ -518,19 +525,19 @@
             
             // --- Complex Sentences (Joined by Connectors: ve, ama, sonra, yoksa, bu yüzden) ---
             { 
-                tr: "<span class='keyword' data-dict='Towel'>Havlu</span>nu <span class='keyword' data-dict='Sand'>kum</span>a koyabilirsin ve <span class='keyword' data-dict='To sunbathe'>güneşlen</span>ebilirsin.", 
+                tr: "<span class='keyword' data-dict='Towel'>Havlu</span>nu <span class='keyword' data-dict='Sand'>kum</span>a koyabilirsin ve <span class='keyword' data-dict='(to) sunbathe'>güneşlen</span>ebilirsin.", 
                 en: "You can put your <span class='keyword' data-dict='Havlu'>towel</span> on the <span class='keyword' data-dict='Kum'>sand</span> and <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
             },
             { 
-                tr: "Bir <span class='keyword' data-dict='To take a break'>mola ver</span>dik sonra <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='To get a tan'>bronzlaş</span>tık.", 
+                tr: "Bir <span class='keyword' data-dict='(to) take a break'>mola ver</span>dik sonra <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>tık.", 
                 en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span>, then we <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." 
             },
             { 
-                tr: "Güneş vardı ama <span class='keyword' data-dict='To get a tan'>bronzlaş</span>amadım.", 
+                tr: "Güneş vardı ama <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>amadım.", 
                 en: "It was sunny, but I couldn't <span class='keyword' data-dict='Bronzlaşmak'>get a tan</span>." 
             },
             { 
-                tr: "<span class='keyword' data-dict='To rest'>Dinlen</span>dim ama <span class='keyword' data-dict='To sunbathe'>güneşlen</span>emedim.", 
+                tr: "<span class='keyword' data-dict='(to) rest'>Dinlen</span>dim ama <span class='keyword' data-dict='(to) sunbathe'>güneşlen</span>emedim.", 
                 en: "I <span class='keyword' data-dict='Dinlenmek'>rested</span> but I couldn't <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
             },
             { 
@@ -538,7 +545,7 @@
                 en: "I had a <span class='keyword' data-dict='Havlu'>towel</span> in my bag, otherwise I had to take a <span class='keyword' data-dict='Havlu'>towel</span>." 
             },
             { 
-                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da <span class='keyword' data-dict='To rest'>dinlen</span>emedim bu yüzden <span class='keyword' data-dict='To sunbathe'>güneşlenmeyi</span> tercih ettim.", 
+                tr: "<span class='keyword' data-dict='Beach'>Kumsal</span>da <span class='keyword' data-dict='(to) rest'>dinlen</span>emedim bu yüzden <span class='keyword' data-dict='(to) sunbathe'>güneşlenmeyi</span> tercih ettim.", 
                 en: "I couldn't <span class='keyword' data-dict='Dinlenmek'>rest</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>, so I preferred to <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." 
             },
             { 
