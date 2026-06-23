@@ -137,7 +137,6 @@
             padding-bottom: 5px;
         }
 
-        /* Flex wrap layout to center orphans perfectly on the bottom row */
         .word-pool {
             display: flex;
             flex-wrap: wrap;
@@ -165,7 +164,6 @@
             min-height: 50px;
             box-sizing: border-box;
             touch-action: manipulation; 
-            /* Flexible sizing for narrower, centered boxes */
             flex: 1 1 calc(25% - 10px);
             min-width: 120px;
             max-width: 160px;
@@ -380,13 +378,16 @@
 </head>
 <body>
 
+    <!-- Dictionary Tooltip -->
     <div id="dict-tooltip" class="hidden"></div>
 
+    <!-- Landing Page Hub -->
     <div id="landing-page" class="screen">
         <h1>Thematic Vocabulary and Grammar Cocktail</h1>
         <div id="hub-grid" class="lessons-grid"></div>
     </div>
 
+    <!-- Game 1: Word Match -->
     <div id="game1-match" class="screen hidden">
         <div class="game-header">
             <h2 id="match-game-title">Match the Words</h2>
@@ -402,6 +403,7 @@
         </div>
     </div>
 
+    <!-- Game 2: Flashcards -->
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
@@ -415,6 +417,7 @@
             <button class="action-btn" style="padding: 5px 15px; font-size: 14px;" onclick="switchScreen('landing-page')">← Back to Hub</button>
         </div>
         
+        <!-- Flashcard swiping container -->
         <div class="flashcard-container" id="fc-container">
             <div class="flashcard">
                 <div id="fc-tr" class="fc-text"></div>
@@ -422,6 +425,7 @@
                 <div id="fc-en" class="fc-text hidden"></div>
             </div>
             
+            <!-- Mobile Tappable Buttons -->
             <div class="controls-hint">
                 <button class="control-btn" onclick="simulateKey('ArrowUp')">
                     <span class="key-badge">↑</span> Reveal
@@ -458,7 +462,7 @@
                     { tr: "Şezlong", en: "Sunbed" },
                     { tr: "Terlik", en: "Flipflop" }
                 ],
-                sentences: [
+                simpleSentences: [
                     { tr: "<span class='keyword' data-dict='Sunbed'>Şezlong</span>um kirliydi.", en: "My <span class='keyword' data-dict='Şezlong'>sunbed</span> was dirty." },
                     { tr: "<span class='keyword' data-dict='Towel'>Havlu</span>larımız ıslaktı.", en: "Our <span class='keyword' data-dict='Havlu'>towels</span> were wet." },
                     { tr: "Kızım <span class='keyword' data-dict='Sand'>kum</span>dan nefret ediyor.", en: "My daughter hates <span class='keyword' data-dict='Kum'>sand</span>." },
@@ -476,7 +480,9 @@
                     { tr: "<span class='keyword' data-dict='Shade'>Gölge</span>de <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>tık.", en: "We <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> in the <span class='keyword' data-dict='Gölge'>shade</span>." },
                     { tr: "Tatilde her yerde <span class='keyword' data-dict='(to) take a break'>mola ver</span>dik.", en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span> everywhere on vacation." },
                     { tr: "Bazı <span class='keyword' data-dict='Beach'>kumsal</span>larda <span class='keyword' data-dict='Sunbed'>şezlong</span> için para almazlardı.", en: "On some <span class='keyword' data-dict='Kumsal'>beaches</span>, they wouldn't charge money for <span class='keyword' data-dict='Şezlong'>sunbeds</span>." },
-                    { tr: "Plajda hiçbir yerde <span class='keyword' data-dict='Shade'>gölge</span> yoktu.", en: "There was <span class='keyword' data-dict='Gölge'>shade</span> nowhere on the beach." },
+                    { tr: "Plajda hiçbir yerde <span class='keyword' data-dict='Shade'>gölge</span> yoktu.", en: "There was <span class='keyword' data-dict='Gölge'>shade</span> nowhere on the beach." }
+                ],
+                complexSentences: [
                     { tr: "<span class='keyword' data-dict='Towel'>Havlu</span>nu <span class='keyword' data-dict='Sand'>kum</span>a koyabilirsin ve <span class='keyword' data-dict='(to) sunbathe'>güneşlen</span>ebilirsin.", en: "You can put your <span class='keyword' data-dict='Havlu'>towel</span> on the <span class='keyword' data-dict='Kum'>sand</span> and <span class='keyword' data-dict='Güneşlenmek'>sunbathe</span>." },
                     { tr: "Bir <span class='keyword' data-dict='(to) take a break'>mola ver</span>dik sonra <span class='keyword' data-dict='Beach'>kumsal</span>da <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>tık.", en: "We <span class='keyword' data-dict='Mola vermek'>took a break</span>, then we <span class='keyword' data-dict='Bronzlaşmak'>got a tan</span> on the <span class='keyword' data-dict='Kumsal'>beach</span>." },
                     { tr: "Güneş vardı ama <span class='keyword' data-dict='(to) get a tan'>bronzlaş</span>amadım.", en: "It was sunny, but I couldn't <span class='keyword' data-dict='Bronzlaşmak'>get a tan</span>." },
@@ -515,7 +521,7 @@
                     { tr: "Uymak", en: "(to) fit" },
                     { tr: "Ürün", en: "Product" }
                 ],
-                sentences: [
+                simpleSentences: [
                     { tr: "<span class='keyword' data-dict='Fitting room'>Soyunma kabini</span>ni bulamıyorum.", en: "I can't find the <span class='keyword' data-dict='Soyunma kabini'>fitting room</span>." },
                     { tr: "<span class='keyword' data-dict='Fitting room'>Soyunma kabini</span> <span class='keyword' data-dict='Occupied'>dolu</span> mu?", en: "Is the <span class='keyword' data-dict='Soyunma kabini'>fitting room</span> <span class='keyword' data-dict='Dolu'>occupied</span>?" },
                     { tr: "<span class='keyword' data-dict='Free'>Boş</span> <span class='keyword' data-dict='Fitting room'>soyunma kabini</span>niz var mı?", en: "Do you have a <span class='keyword' data-dict='Boş'>free</span> <span class='keyword' data-dict='Soyunma kabini'>fitting room</span>?" },
@@ -546,7 +552,9 @@
                     { tr: "Bunu <span class='keyword' data-dict='(to) pack'>paketlemek</span> zorunda değilsiniz.", en: "You don't have to <span class='keyword' data-dict='Paketlemek'>pack</span> this." },
                     { tr: "Bunu 3 <span class='keyword' data-dict='Installment'>taksit</span>le ödeyebilir miyim?", en: "Can I pay for this in 3 <span class='keyword' data-dict='Taksit'>installments</span>?" },
                     { tr: "Kredi kartına <span class='keyword' data-dict='Installment'>taksit</span> yapıyor musunuz?", en: "Do you offer <span class='keyword' data-dict='Taksit'>installments</span> on credit cards?" },
-                    { tr: "Maalesef <span class='keyword' data-dict='Installment'>taksit</span> yapamıyoruz.", en: "Unfortunately, we can't offer <span class='keyword' data-dict='Taksit'>installments</span>." },
+                    { tr: "Maalesef <span class='keyword' data-dict='Installment'>taksit</span> yapamıyoruz.", en: "Unfortunately, we can't offer <span class='keyword' data-dict='Taksit'>installments</span>." }
+                ],
+                complexSentences: [
                     { tr: "Bu ağır bu yüzden bunu <span class='keyword' data-dict='(to) ship'>kargolamalısınız</span>.", en: "This is heavy, so you should <span class='keyword' data-dict='Kargolamak'>ship</span> this." },
                     { tr: "<span class='keyword' data-dict='Defect'>Defo</span>dan dolayı bu <span class='keyword' data-dict='Product'>ürün</span>ü <span class='keyword' data-dict='(to) return'>iade edeceğim</span>.", en: "I will <span class='keyword' data-dict='İade etmek'>return</span> this <span class='keyword' data-dict='Ürün'>product</span> due to the <span class='keyword' data-dict='Defo'>defect</span>." },
                     { tr: "<span class='keyword' data-dict='Checkout'>Kasa</span> kalabalık bu yüzden yeni bir <span class='keyword' data-dict='Checkout'>kasa</span> açmalısınız.", en: "The <span class='keyword' data-dict='Kasa'>checkout</span> is crowded, so you should open a new <span class='keyword' data-dict='Kasa'>checkout</span>." }
@@ -577,7 +585,7 @@
                     { tr: "Üyelik", en: "Membership" },
                     { tr: "Yağ", en: "Fat" }
                 ],
-                sentences: [
+                simpleSentences: [
                     { tr: "<span class='keyword' data-dict='Weight training'>Ağırlık antrenmanı</span>nı bitiremedim.", en: "I couldn't finish the <span class='keyword' data-dict='Ağırlık antrenmanı'>weight training</span>." },
                     { tr: "<span class='keyword' data-dict='Weight training'>Ağırlık antrenmanı</span> <span class='keyword' data-dict='Muscle'>kas</span> için iyidir.", en: "<span class='keyword' data-dict='Ağırlık antrenmanı'>Weight training</span> is good for <span class='keyword' data-dict='Kas'>muscle</span>." },
                     { tr: "<span class='keyword' data-dict='Workout'>Antrenman</span>ı bitiremedik.", en: "We couldn't finish the <span class='keyword' data-dict='Antrenman'>workout</span>." },
@@ -612,7 +620,9 @@
                     { tr: "<span class='keyword' data-dict='Weight training'>Ağırlık antrenmanı</span>nda herkes <span class='keyword' data-dict='(to) sweat'>terli</span>yordu.", en: "Everyone was <span class='keyword' data-dict='Terlemek'>sweating</span> during <span class='keyword' data-dict='Ağırlık antrenmanı'>weight training</span>." },
                     { tr: "<span class='keyword' data-dict='Membership'>Üyelik</span>imi kontrol edebilir misiniz.", en: "Can you check my <span class='keyword' data-dict='Üyelik'>membership</span>?" },
                     { tr: "<span class='keyword' data-dict='Fat'>Yağ</span> yakamıyorum.", en: "I can't burn <span class='keyword' data-dict='Yağ'>fat</span>." },
-                    { tr: "Belimde <span class='keyword' data-dict='Fat'>yağ</span> var.", en: "There is <span class='keyword' data-dict='Yağ'>fat</span> around my waist." },
+                    { tr: "Belimde <span class='keyword' data-dict='Fat'>yağ</span> var.", en: "There is <span class='keyword' data-dict='Yağ'>fat</span> around my waist." }
+                ],
+                complexSentences: [
                     { tr: "<span class='keyword' data-dict='Weight training'>Ağırlık antrenmanı</span>ndan sonra <span class='keyword' data-dict='(to) rest'>dinlen</span>melisin.", en: "You should <span class='keyword' data-dict='Dinlenmek'>rest</span> after <span class='keyword' data-dict='Ağırlık antrenmanı'>weight training</span>." },
                     { tr: "Bu <span class='keyword' data-dict='Stuffy'>havasız</span> spor salonuna klima koymalısınız.", en: "You should put air conditioning in this <span class='keyword' data-dict='Havasız'>stuffy</span> gym." },
                     { tr: "<span class='keyword' data-dict='Warm-up'>Isınma</span>dan önce hiçbir şey <span class='keyword' data-dict='(to) lift'>kaldırmama</span>lısın.", en: "You should <span class='keyword' data-dict='Kaldırmak'>lift</span> nothing before <span class='keyword' data-dict='Isınma'>warming up</span>." },
@@ -642,7 +652,7 @@
                     { tr: "Yoğun", en: "Intense" },
                     { tr: "Yoğurmak", en: "(to) knead" }
                 ],
-                sentences: [
+                simpleSentences: [
                     { tr: "<span class='keyword' data-dict='Sole'>Ayak tabanı</span>m <span class='keyword' data-dict='(to) ache'>ağrı</span>dı.", en: "My <span class='keyword' data-dict='Ayak tabanı'>sole</span> <span class='keyword' data-dict='Ağrımak'>ached</span>." },
                     { tr: "<span class='keyword' data-dict='Tailbone'>Kuyruk sokumu</span>m <span class='keyword' data-dict='(to) ache'>ağrıyor</span>.", en: "My <span class='keyword' data-dict='Kuyruk sokumu'>tailbone</span> <span class='keyword' data-dict='Ağrımak'>aches</span>." },
                     { tr: "<span class='keyword' data-dict='Toe'>Ayak parmağı</span>ma dokunmamalısınız.", en: "You shouldn't touch my <span class='keyword' data-dict='Ayak parmağı'>toe</span>." },
@@ -672,13 +682,63 @@
                     { tr: "Daha <span class='keyword' data-dict='Light'>hafif</span> <span class='keyword' data-dict='(to) knead'>yoğur</span>abilir misin.", en: "Can you <span class='keyword' data-dict='Yoğurmak'>knead</span> <span class='keyword' data-dict='Hafif'>lighter</span>?" },
                     { tr: "<span class='keyword' data-dict='Tailbone'>Kuyruk sokumu</span>mu <span class='keyword' data-dict='(to) skip'>pas geç</span>ebilirsiniz.", en: "You can <span class='keyword' data-dict='Pas geçmek'>skip</span> my <span class='keyword' data-dict='Kuyruk sokumu'>tailbone</span>." },
                     { tr: "Bugün <span class='keyword' data-dict='Intense'>yoğun</span> masajı <span class='keyword' data-dict='(to) skip'>pas geç</span>eceğim.", en: "I will <span class='keyword' data-dict='Pas geçmek'>skip</span> the <span class='keyword' data-dict='Yoğun'>intense</span> massage today." },
-                    { tr: "<span class='keyword' data-dict='Appointment'>Randevu</span>mu <span class='keyword' data-dict='(to) skip'>pas geç</span>mek zorundayım.", en: "I have to <span class='keyword' data-dict='Pas geçmek'>skip</span> my <span class='keyword' data-dict='Randevu'>appointment</span>." },
+                    { tr: "<span class='keyword' data-dict='Appointment'>Randevu</span>mu <span class='keyword' data-dict='(to) skip'>pas geç</span>mek zorundayım.", en: "I have to <span class='keyword' data-dict='Pas geçmek'>skip</span> my <span class='keyword' data-dict='Randevu'>appointment</span>." }
+                ],
+                complexSentences: [
                     { tr: "<span class='keyword' data-dict='Waist'>Bel</span>ime yağ <span class='keyword' data-dict='(to) rub'>sür</span>mek zorunda değilsiniz.", en: "You don't have to <span class='keyword' data-dict='Sürmek'>rub</span> oil on my <span class='keyword' data-dict='Bel'>waist</span>." },
                     { tr: "<span class='keyword' data-dict='Sole'>Ayak tabanı</span>ma yağ <span class='keyword' data-dict='(to) rub'>sür</span>melisiniz.", en: "You should <span class='keyword' data-dict='Sürmek'>rub</span> oil on my <span class='keyword' data-dict='Ayak tabanı'>sole</span>." },
                     { tr: "<span class='keyword' data-dict='Calf'>Baldır</span>ıma aromatik yağ <span class='keyword' data-dict='(to) rub'>sür</span>ebilirsin.", en: "You can <span class='keyword' data-dict='Sürmek'>rub</span> aromatic oil on my <span class='keyword' data-dict='Baldır'>calf</span>." },
                     { tr: "O yağı bir daha <span class='keyword' data-dict='(to) rub'>sür</span>er misin.", en: "Can you <span class='keyword' data-dict='Sürmek'>rub</span> that oil again?" },
                     { tr: "<span class='keyword' data-dict='Sole'>Ayak tabanı</span>mdaki <span class='keyword' data-dict='Spot'>nokta</span>ları bulmalısınız.", en: "You should find the <span class='keyword' data-dict='Nokta'>spots</span> on my <span class='keyword' data-dict='Ayak tabanı'>sole</span>." },
                     { tr: "<span class='keyword' data-dict='Toe'>Ayak parmak</span>larımı da <span class='keyword' data-dict='(to) knead'>yoğur</span>malısınız.", en: "You should <span class='keyword' data-dict='Yoğurmak'>knead</span> my <span class='keyword' data-dict='Ayak parmağı'>toes</span> too." }
+                ]
+            },
+            5: {
+                title: "Airport & Customs",
+                vocabulary: [
+                    { tr: "Beyan etmek", en: "(to) declare" },
+                    { tr: "Doğrulamak", en: "(to) confirm" },
+                    { tr: "Dönüş bileti", en: "Return ticket" },
+                    { tr: "Göçmen polisi", en: "Immigration officer" },
+                    { tr: "Gümrük görevlisi", en: "Customs officer" },
+                    { tr: "Kalma süresi", en: "Length of stay" },
+                    { tr: "Konaklama", en: "Accommodation" },
+                    { tr: "Nakit", en: "Cash" },
+                    { tr: "Ne kadar süre", en: "How long" },
+                    { tr: "Seyahat amacı", en: "Purpose of travel" },
+                    { tr: "Seyahat belgesi", en: "Travel document" },
+                    { tr: "Yasa dışı", en: "Illegal" },
+                    { tr: "Ziyaret etmek", en: "(to) visit" }
+                ],
+                simpleSentences: [
+                    { tr: "<span class='keyword' data-dict='(to) declare'>Beyan edecek</span> bir şeyiniz var mı?", en: "Do you have anything <span class='keyword' data-dict='Beyan etmek'>(to) declare</span>?" },
+                    { tr: "<span class='keyword' data-dict='Return ticket'>Dönüş bileti</span>nizi <span class='keyword' data-dict='(to) confirm'>doğrulamak</span> zorundayız.", en: "We have to <span class='keyword' data-dict='Doğrulamak'>confirm</span> your <span class='keyword' data-dict='Dönüş bileti'>return ticket</span>." },
+                    { tr: "<span class='keyword' data-dict='Return ticket'>Dönüş bileti</span>nizi görebilir miyim?", en: "Can I see your <span class='keyword' data-dict='Dönüş bileti'>return ticket</span>?" },
+                    { tr: "<span class='keyword' data-dict='Immigration officer'>Göçmen polisi</span> ile konuşmalısınız.", en: "You have to talk to the <span class='keyword' data-dict='Göçmen polisi'>immigration officer</span>." },
+                    { tr: "<span class='keyword' data-dict='Customs officer'>Gümrük görevlisi</span> valizleri kontrol etti.", en: "The <span class='keyword' data-dict='Gümrük görevlisi'>customs officer</span> checked the suitcases." },
+                    { tr: "<span class='keyword' data-dict='Length of stay'>Kalma süresi</span>nizde bir değişiklik var mı?", en: "Is there a change in your <span class='keyword' data-dict='Kalma süresi'>length of stay</span>?" },
+                    { tr: "Oteliniz <span class='keyword' data-dict='Accommodation'>konaklama</span>nızı onayladı mı?", en: "Did your hotel confirm your <span class='keyword' data-dict='Konaklama'>accommodation</span>?" },
+                    { tr: "10.000 dolardan fazla <span class='keyword' data-dict='Cash'>nakit</span>im yok.", en: "I don't have more than $10,000 in <span class='keyword' data-dict='Nakit'>cash</span>." },
+                    { tr: "Ülkemizde <span class='keyword' data-dict='How long'>ne kadar süre</span> kalacaksınız?", en: "<span class='keyword' data-dict='Ne kadar süre'>How long</span> will you stay in our country?" },
+                    { tr: "<span class='keyword' data-dict='Purpose of travel'>Seyahat amacı</span>nızı öğrenebilir miyim?", en: "Can I learn your <span class='keyword' data-dict='Seyahat amacı'>purpose of travel</span>?" },
+                    { tr: "<span class='keyword' data-dict='Travel document'>Seyahat belgesi</span>nizi göstermek zorundasınız.", en: "You have to show your <span class='keyword' data-dict='Seyahat belgesi'>travel document</span>." },
+                    { tr: "Çantalarınızda <span class='keyword' data-dict='Illegal'>yasa dışı</span> bir şey var mı?", en: "Is there anything <span class='keyword' data-dict='Yasa dışı'>illegal</span> in your bags?" },
+                    { tr: "Ülkemizde kimleri <span class='keyword' data-dict='(to) visit'>ziyaret ede</span>ceksiniz?", en: "Who will you <span class='keyword' data-dict='Ziyaret etmek'>visit</span> in our country?" }
+                ],
+                complexSentences: [
+                    { tr: "Tütünü neden <span class='keyword' data-dict='(to) declare'>beyan etme</span>diğinizi açıklayabilir misiniz?", en: "Can you explain why you didn't <span class='keyword' data-dict='Beyan etmek'>declare</span> the tobacco?" },
+                    { tr: "Siz ülkeye girerken vizenizi <span class='keyword' data-dict='(to) confirm'>doğrulamak</span> zorundayız.", en: "We have to <span class='keyword' data-dict='Doğrulamak'>confirm</span> your visa while you enter the country." },
+                    { tr: "<span class='keyword' data-dict='Return ticket'>Dönüş bileti</span>nizi gösterdikten sonra ülkeye gelebilirsiniz.", en: "You can come into the country after showing your <span class='keyword' data-dict='Dönüş bileti'>return ticket</span>." },
+                    { tr: "<span class='keyword' data-dict='Immigration officer'>Göçmen polisi</span> vizemin olup olmadığını kontrol etmedi.", en: "The <span class='keyword' data-dict='Göçmen polisi'>immigration officer</span> didn't check if I had a visa." },
+                    { tr: "<span class='keyword' data-dict='Customs officer'>Gümrük görevlisi</span> çantamda ne taşıdığımı merak etti.", en: "The <span class='keyword' data-dict='Gümrük görevlisi'>customs officer</span> wondered what I was carrying in my bag." },
+                    { tr: "<span class='keyword' data-dict='Length of stay'>Kalma süre</span>mi kanıtladım ve ülkeye girebildim.", en: "I proved my <span class='keyword' data-dict='Kalma süresi'>length of stay</span> and I could enter the country." },
+                    { tr: "<span class='keyword' data-dict='Accommodation'>Konaklama</span>mı kolayca ispatlayabildim.", en: "I could easily prove my <span class='keyword' data-dict='Konaklama'>accommodation</span>." },
+                    { tr: "10.000 dolardan fazla <span class='keyword' data-dict='Cash'>nakit</span> taşıyarak ülkeye giremezsin.", en: "You can't enter the country carrying more than $10,000 in <span class='keyword' data-dict='Nakit'>cash</span>." },
+                    { tr: "Ülkenizde <span class='keyword' data-dict='How long'>ne kadar süre</span> kalacağıma karar veremedim.", en: "I couldn't decide <span class='keyword' data-dict='Ne kadar süre'>how long</span> I will stay in your country." },
+                    { tr: "<span class='keyword' data-dict='Purpose of travel'>Seyahat amacı</span>mı kanıtlamak için rezervasyonumu göstermiştim.", en: "I had shown my reservation to prove my <span class='keyword' data-dict='Seyahat amacı'>purpose of travel</span>." },
+                    { tr: "<span class='keyword' data-dict='Travel document'>Seyahat belge</span>mi kontrol etsinler diye onlara verdim.", en: "I gave them my <span class='keyword' data-dict='Seyahat belgesi'>travel document</span> so they could check it." },
+                    { tr: "<span class='keyword' data-dict='Illegal'>Yasa dışı</span> hiçbir şey taşımadığımı <span class='keyword' data-dict='(to) declare'>beyan ettim</span>.", en: "I <span class='keyword' data-dict='Beyan etmek'>declared</span> that I didn't carry anything <span class='keyword' data-dict='Yasa dışı'>illegal</span>." },
+                    { tr: "Yurt dışını <span class='keyword' data-dict='(to) visit'>ziyaret etmek</span> pahalandı.", en: "It got expensive to <span class='keyword' data-dict='Ziyaret etmek'>visit</span> abroad." }
                 ]
             }
         };
@@ -748,7 +808,6 @@
         function startGame(lessonId) {
             currentActiveLesson = lessonId;
             activeVocabulary = lessonData[lessonId].vocabulary;
-            activeSentences = lessonData[lessonId].sentences;
             
             document.getElementById('match-game-title').innerText = `Match the Words (${lessonData[lessonId].title})`;
             
@@ -759,10 +818,10 @@
             const enCol = document.getElementById('g1-en-col');
             trCol.innerHTML = ''; enCol.innerHTML = '';
 
-            // Turkish remains totally random
+            // Turkish is randomly shuffled every time
             const shuffledTr = shuffleArray([...activeVocabulary]);
             
-            // English is forced into strict alphabetical order
+            // English is locked to alphabetical order
             const sortedEn = [...activeVocabulary].sort((a, b) => a.en.localeCompare(b.en));
 
             shuffledTr.forEach(item => {
@@ -777,7 +836,7 @@
                 const btn = document.createElement('button');
                 btn.className = 'match-btn btn-en';
                 btn.innerText = item.en;
-                // Since English is sorted, we must find its matching Turkish pair by finding it in activeVocabulary
+                // Identify the correct corresponding Turkish word
                 const correctTr = activeVocabulary.find(v => v.en === item.en).tr;
                 btn.onclick = () => selectEn(btn, correctTr);
                 enCol.appendChild(btn);
@@ -820,8 +879,11 @@
             incorrectCount = 0;
             historyStack = [];
             
-            // Randomize activeSentences right before starting the flashcards
-            activeSentences = shuffleArray([...lessonData[currentActiveLesson].sentences]);
+            // Independently shuffle Simple and Complex sentences, then concatenate them.
+            // This ensures Simple sentences are always completed randomly before Complex sentences begin.
+            const shuffledSimple = shuffleArray([...lessonData[currentActiveLesson].simpleSentences]);
+            const shuffledComplex = shuffleArray([...lessonData[currentActiveLesson].complexSentences]);
+            activeSentences = [...shuffledSimple, ...shuffledComplex];
             
             switchScreen('game-flashcards');
             document.getElementById('hud-total').innerText = activeSentences.length;
