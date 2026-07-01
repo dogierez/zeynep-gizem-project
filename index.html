@@ -378,16 +378,13 @@
 </head>
 <body>
 
-    <!-- Dictionary Tooltip -->
     <div id="dict-tooltip" class="hidden"></div>
 
-    <!-- Landing Page Hub -->
     <div id="landing-page" class="screen">
         <h1>Thematic Vocabulary and Grammar Cocktail</h1>
         <div id="hub-grid" class="lessons-grid"></div>
     </div>
 
-    <!-- Game 1: Word Match -->
     <div id="game1-match" class="screen hidden">
         <div class="game-header">
             <h2 id="match-game-title">Match the Words</h2>
@@ -403,7 +400,6 @@
         </div>
     </div>
 
-    <!-- Game 2: Flashcards -->
     <div id="game-flashcards" class="screen hidden">
         <div class="hud">
             <div>Cards: <span id="hud-remaining">0</span> / <span id="hud-total">0</span></div>
@@ -417,7 +413,6 @@
             <button class="action-btn" style="padding: 5px 15px; font-size: 14px;" onclick="switchScreen('landing-page')">← Back to Hub</button>
         </div>
         
-        <!-- Flashcard swiping container -->
         <div class="flashcard-container" id="fc-container">
             <div class="flashcard">
                 <div id="fc-tr" class="fc-text"></div>
@@ -425,7 +420,6 @@
                 <div id="fc-en" class="fc-text hidden"></div>
             </div>
             
-            <!-- Mobile Tappable Buttons -->
             <div class="controls-hint">
                 <button class="control-btn" onclick="simulateKey('ArrowUp')">
                     <span class="key-badge">↑</span> Reveal
@@ -803,6 +797,55 @@
                 ],
                 complexSentences: [
                     { tr: "<span class='keyword' data-dict='Tired'>Yorgun</span>um ama mutluyum.", en: "I am <span class='keyword' data-dict='Yorgun'>tired</span>, but I am happy." }
+                ]
+            },
+            7: {
+                title: "Car Park Problems",
+                vocabulary: [
+                    { tr: "Acil butonu", en: "Emergency button" },
+                    { tr: "Açık otopark", en: "Open-air parking" },
+                    { tr: "Aşmak", en: "(to) exceed" },
+                    { tr: "Bariyer", en: "Parking barrier" },
+                    { tr: "Bileti okutmak", en: "(to) scan the ticket" },
+                    { tr: "Boş yer", en: "Free spot" },
+                    { tr: "Çıkış saati", en: "Exit time" },
+                    { tr: "Dolu", en: "Full" },
+                    { tr: "Giriş saati", en: "Entry time" },
+                    { tr: "Görevli", en: "Parking attendant" },
+                    { tr: "Kapalı otopark", en: "Indoor parking" },
+                    { tr: "Kapatmak", en: "(to) block" },
+                    { tr: "Kartı yutmak", en: "(to) swallow the card" },
+                    { tr: "Otopark çıkışı", en: "Parking exit" },
+                    { tr: "Otopark girişi", en: "Parking entrance" },
+                    { tr: "Ödeme yapmak", en: "(to) make a payment" },
+                    { tr: "Park çizgileri", en: "Parking lines" },
+                    { tr: "Park yeri", en: "Parking spot" },
+                    { tr: "Taşmak", en: "(to) park over the line" },
+                    { tr: "Ücret", en: "Fee" }
+                ],
+                simpleSentences: [
+                    { tr: "<span class='keyword' data-dict='Emergency button'>Acil butonu</span> çalışmıyor.", en: "The <span class='keyword' data-dict='Emergency button'>emergency button</span> isn't working." },
+                    { tr: "<span class='keyword' data-dict='Exit time'>Çıkış saati</span>ni <span class='keyword' data-dict='(to) exceed'>aşma</span>dım.", en: "I didn't <span class='keyword' data-dict='(to) exceed'>exceed</span> the <span class='keyword' data-dict='Exit time'>exit time</span>." },
+                    { tr: "<span class='keyword' data-dict='Exit time'>Çıkış saati</span>ni kontrol etmeliydim.", en: "I should have checked the <span class='keyword' data-dict='Exit time'>exit time</span>." },
+                    { tr: "<span class='keyword' data-dict='Entry time'>Giriş saati</span>ni beklemek zorunda mıyız?", en: "Do we have to wait for the <span class='keyword' data-dict='Entry time'>entry time</span>?" },
+                    { tr: "<span class='keyword' data-dict='Parking attendant'>Görevli</span> yardımcı değildi.", en: "The <span class='keyword' data-dict='Parking attendant'>parking attendant</span> wasn't helpful." },
+                    { tr: "<span class='keyword' data-dict='Indoor parking'>Kapalı otopark</span> <span class='keyword' data-dict='Open-air parking'>açık otopark</span>tan daha pahalı.", en: "<span class='keyword' data-dict='Indoor parking'>Indoor parking</span> is more expensive than <span class='keyword' data-dict='Open-air parking'>open-air parking</span>." },
+                    { tr: "Bir araba <span class='keyword' data-dict='Parking exit'>otopark çıkışı</span>nı <span class='keyword' data-dict='(to) block'>kapatıyor</span>du.", en: "A car was <span class='keyword' data-dict='(to) block'>blocking</span> the <span class='keyword' data-dict='Parking exit'>parking exit</span>." },
+                    { tr: "<span class='keyword' data-dict='Indoor parking'>Kapalı otopark</span>ta <span class='keyword' data-dict='Free spot'>boş yer</span> var mı?", en: "Is there a <span class='keyword' data-dict='Free spot'>free spot</span> in the <span class='keyword' data-dict='Indoor parking'>indoor parking</span>?" },
+                    { tr: "<span class='keyword' data-dict='Parking exit'>Otopark çıkışı</span>nı bulamadık.", en: "We couldn't find the <span class='keyword' data-dict='Parking exit'>parking exit</span>." },
+                    { tr: "<span class='keyword' data-dict='Open-air parking'>Açık otopark</span> <span class='keyword' data-dict='Full'>dolu</span>ydu.", en: "The <span class='keyword' data-dict='Open-air parking'>open-air parking</span> was <span class='keyword' data-dict='Full'>full</span>." },
+                    { tr: "<span class='keyword' data-dict='Parking entrance'>Otopark girişi</span>nde <span class='keyword' data-dict='Parking barrier'>bariyer</span> var mı?", en: "Is there a <span class='keyword' data-dict='Parking barrier'>parking barrier</span> at the <span class='keyword' data-dict='Parking entrance'>parking entrance</span>?" },
+                    { tr: "Sarı <span class='keyword' data-dict='Parking lines'>park çizgileri</span>nin arasına park edebilir miyim?", en: "Can I park between the yellow <span class='keyword' data-dict='Parking lines'>parking lines</span>?" },
+                    { tr: "<span class='keyword' data-dict='Parking spot'>Park yeri</span>niz aşırı dar.", en: "Your <span class='keyword' data-dict='Parking spot'>parking spot</span> is too narrow." },
+                    { tr: "Arabam <span class='keyword' data-dict='Parking lines'>park çizgileri</span>nden <span class='keyword' data-dict='(to) park over the line'>taşmıyor</span>du.", en: "My car wasn't <span class='keyword' data-dict='(to) park over the line'>parking over the line</span>." },
+                    { tr: "İki kere <span class='keyword' data-dict='Fee'>ücret</span> ödemek zorunda kaldım.", en: "I had to pay the <span class='keyword' data-dict='Fee'>fee</span> twice." }
+                ],
+                complexSentences: [
+                    { tr: "Güneş var bu yüzden arabamı <span class='keyword' data-dict='Open-air parking'>açık otopark</span>a bırakamam.", en: "It is sunny, so I can't leave my car in the <span class='keyword' data-dict='Open-air parking'>open-air parking</span>." },
+                    { tr: "<span class='keyword' data-dict='Fee'>Ücret</span>i ödedim ama <span class='keyword' data-dict='Parking barrier'>bariyer</span> kalkmıyor.", en: "I paid the <span class='keyword' data-dict='Fee'>fee</span>, but the <span class='keyword' data-dict='Parking barrier'>parking barrier</span> isn't rising." },
+                    { tr: "Biletimi <span class='keyword' data-dict='(to) scan the ticket'>okuttum</span> ama <span class='keyword' data-dict='Parking barrier'>bariyer</span> kalkmıyor.", en: "I <span class='keyword' data-dict='(to) scan the ticket'>scanned the ticket</span>, but the <span class='keyword' data-dict='Parking barrier'>parking barrier</span> isn't rising." },
+                    { tr: "Makine <span class='keyword' data-dict='(to) swallow the card'>kartı yuttu</span> bu yüzden hiçbir şey yapamıyorum.", en: "The machine <span class='keyword' data-dict='(to) swallow the card'>swallowed the card</span>, so I can do nothing." },
+                    { tr: "<span class='keyword' data-dict='(to) make a payment'>Ödeme yaptım</span> ama <span class='keyword' data-dict='Parking barrier'>bariyer</span> kalkmıyor.", en: "I <span class='keyword' data-dict='(to) make a payment'>made a payment</span>, but the <span class='keyword' data-dict='Parking barrier'>parking barrier</span> isn't rising." }
                 ]
             }
         };
